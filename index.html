@@ -3,6 +3,14 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Word Shortener</title>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118233796-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-118233796-1');
+		</script>
 	</head>
 	<body>
 		<textarea name="name" rows="24" cols="100" id="text" autofocus></textarea>
@@ -44,6 +52,7 @@
 			$('textarea#text').val($('textarea#text').val().split(' ').map(word => {
 				return word.split('\n').map(word => processWord(word)).join('\n')
 			}).join(' '))
+			ga('send', 'event', 'ProcessText', 'ShortenText');
 		})
 	})
 	</script>
