@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Word Shortener</title>
+	</head>
+	<body>
+		<textarea name="name" rows="24" cols="100" id="text" autofocus></textarea>
+		<br>
+		<button type="button" name="button" id="processText">Process Text</button>
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	const randomBoolean = () => {
+		return Math.random() < 0.5
+	}
+	const removeVowels = word => {
+		return word.replace(/[aeiou]/g, '')
+	}
+	const removeRandomConsonants = word => {
+		let length = word.match(/\w+/g).join('').length
+		while (length > 4) {
+			word = word.split('').map((letter, index) => {
+				if (index > 0 && length > 4 && randomBoolean() && /\w/.test(letter)) {
+					length--
+					return ''
+				}
+				return letter
+			}).join('')
+		}
+		return word
+	}
+	const processWord = word => {
+		if (word.length > 4) {
+			word = removeVowels(word)
+		}
+		if (word.length > 4) {
+			word = removeRandomConsonants(word)
+		}
+		return word
+	}
+	$(document).ready(function() {
+		$('#processText').click(function(event) {
+			$('textarea#text').val($('textarea#text').val().split(' ').map(word => {
+				return word.split('\n').map(word => processWord(word)).join('\n')
+			}).join(' '))
+		})
+	})
+	</script>
+</html>
