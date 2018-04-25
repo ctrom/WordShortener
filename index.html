@@ -52,7 +52,7 @@
 			$('textarea#text').val($('textarea#text').val().split(' ').map(word => {
 				return word.split('\n').map(word => processWord(word)).join('\n')
 			}).join(' '))
-			ga('send', 'event', 'ProcessText', 'ShortenText')
+			gtag('event', 'ShortenText')
 		})
 	})
 	</script>
